@@ -40,7 +40,6 @@ app.post("/create-checkout-session", async (req, res) => {
       cancel_url: `https://taxicentralschiphol.nl`,
     });
 
-    console.log(req.body);
     const transporter = nodemailer.createTransport({
       host: "mail.taxicentralschiphol.nl",
       port: 587,
@@ -95,7 +94,7 @@ app.post("/create-checkout-session", async (req, res) => {
             <li><strong>Dropoff Location:</strong> ${req.body.dropoff}</li>
             <li><strong>Distance:</strong> ${req.body.distance}</li>
             <li><strong>Duration:</strong> ${req.body.duration}</li>
-            <li><strong>Price:</strong> ${req.body.price_data.currency} ${req.body.price_data.unit_amount}</li>
+            
           </ul>
         </body>
       </html>
