@@ -46,7 +46,7 @@ app.post("/create-checkout-session", async (req, res) => {
       port: 587,
       secure: false,
       auth: {
-        user: "info@attahiri.nl",
+        user: "info@taxicentralschiphol.nl",
         pass: "info",
       },
       tls: {
