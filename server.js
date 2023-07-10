@@ -40,6 +40,9 @@ app.post("/create-checkout-session", async (req, res) => {
       cancel_url: `https://taxicentralschiphol.nl`,
     });
 
+    // Email sending logic
+
+    console.log("ss");
     const transporter = nodemailer.createTransport({
       host: "mail.taxicentralschiphol.nl",
       port: 587,
@@ -54,7 +57,6 @@ app.post("/create-checkout-session", async (req, res) => {
       },
     });
 
-    // Create the email message
     const mailOptions = {
       from: "info@taxicentralschiphol.nl",
       to: ["info@taxicentralschiphol.nl"],
@@ -94,13 +96,13 @@ app.post("/create-checkout-session", async (req, res) => {
             <li><strong>Dropoff Location:</strong> ${req.body.dropoff}</li>
             <li><strong>Distance:</strong> ${req.body.distance}</li>
             <li><strong>Duration:</strong> ${req.body.duration}</li>
-            
+            <li><strong>Price:</strong> ${req.body.price_data.currency} ${req.body.price_data.unit_amount}</li>
           </ul>
         </body>
       </html>
     `,
     };
-    // Send the email
+
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log("Error sending email:", error);
