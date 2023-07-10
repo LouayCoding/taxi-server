@@ -36,8 +36,8 @@ app.post("/create-checkout-session", async (req, res) => {
         },
       ],
 
-      success_url: `http://localhost:3000/success.html`,
-      cancel_url: `http://localhost:5501`,
+      success_url: `https://taxicentralschiphol.nl/succes-payment/`,
+      cancel_url: `https://taxicentralschiphol.nl`,
     });
 
     console.log(req.body);
