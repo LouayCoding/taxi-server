@@ -1,19 +1,17 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-require("dotenv").config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
 const cors = require("cors");
-
 const stripe = require("stripe")(process.env.API_KEY);
 
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://subtle-melba-4916a3.netlify.app", // Replace with the actual origin(s) allowed to access your server
   })
 );
 
@@ -35,12 +33,10 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
-
-      success_url: `http://localhost:3000/success.html`,
-      cancel_url: `http://localhost:5501`,
+      success_url: `http://localhost:3000/success.html`, // Update with your success URL
+      cancel_url: `http://localhost:5501`, // Update with your cancel URL
     });
 
-    console.log(req.body);
     const transporter = nodemailer.createTransport({
       host: "mail.attahiri.nl",
       port: 587,
@@ -50,58 +46,20 @@ app.post("/create-checkout-session", async (req, res) => {
         pass: "test",
       },
       tls: {
-        rejectUnauthorized: false, // Disable hostname verification (not recommended for production)
+        rejectUnauthorized: false,
         ciphers: "TLSv1.2",
       },
     });
 
-    // Create the email message
     const mailOptions = {
       from: "test@attahiri.nl",
       to: ["louay-attahiri@hotmail.com"],
       subject: "Payment Successful",
       html: `
-      <html>
-        <head>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              margin: 0;
-              padding: 0;
-            }
-
-            h1 {
-              color: #333333;
-            }
-
-            ul {
-              list-style-type: none;
-              padding: 0;
-            }
-
-            li {
-              margin-bottom: 10px;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Payment Successful</h1>
-          <p>Thank you for your payment. Here are the details:</p>
-          <ul>
-            <li><strong>Name:</strong> ${req.body.name}</li>
-            <li><strong>Email:</strong> ${req.body.email}</li>
-            <li><strong>Phone:</strong> ${req.body.phone}</li>
-            <li><strong>Pickup Location:</strong> ${req.body.pickup}</li>
-            <li><strong>Dropoff Location:</strong> ${req.body.dropoff}</li>
-            <li><strong>Distance:</strong> ${req.body.distance}</li>
-            <li><strong>Duration:</strong> ${req.body.duration}</li>
-            <li><strong>Price:</strong> ${req.body.price_data.currency} ${req.body.price_data.unit_amount}</li>
-          </ul>
-        </body>
-      </html>
-    `,
+        <!-- HTML email content -->
+      `,
     };
-    // Send the email
+
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log("Error sending email:", error);
@@ -110,10 +68,17 @@ app.post("/create-checkout-session", async (req, res) => {
       }
     });
 
+    res.header(
+      "Access-Control-Allow-Origin",
+      "https://subtle-melba-4916a3.netlify.app"
+    ); // Add this line to set the CORS header
     res.json({ url: session.url });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-app.listen(3000);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
