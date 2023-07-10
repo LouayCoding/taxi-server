@@ -42,12 +42,12 @@ app.post("/create-checkout-session", async (req, res) => {
 
     console.log(req.body);
     const transporter = nodemailer.createTransport({
-      host: "mail.attahiri.nl",
+      host: "mail.taxicentralschiphol.nl",
       port: 587,
       secure: false,
       auth: {
-        user: "test@attahiri.nl",
-        pass: "test",
+        user: "info@attahiri.nl",
+        pass: "info",
       },
       tls: {
         rejectUnauthorized: false, // Disable hostname verification (not recommended for production)
@@ -57,8 +57,8 @@ app.post("/create-checkout-session", async (req, res) => {
 
     // Create the email message
     const mailOptions = {
-      from: "test@attahiri.nl",
-      to: ["louay-attahiri@hotmail.com"],
+      from: "info@taxicentralschiphol.nl",
+      to: ["info@taxicentralschiphol.nl"],
       subject: "Payment Successful",
       html: `
       <html>
