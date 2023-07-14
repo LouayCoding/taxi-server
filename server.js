@@ -57,7 +57,7 @@ app.post(
           const paymentIntent = event.data.object;
           console.log("PaymentIntent was successful!");
           // Perform actions for a successful payment
-          await handleSuccessfulPayment(paymentIntent);
+          await handleSuccessfulPayment(req);
           break;
         default:
           console.log(`Unhandled event type ${event.type}`);
