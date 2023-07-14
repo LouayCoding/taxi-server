@@ -68,7 +68,7 @@ app.post(
           const paymentIntent = event.data.object;
           console.log("PaymentIntent was successful!");
           // Perform actions for a successful payment
-          await handleSuccessfulPayment(req);
+          await handleSuccessfulPayment(paymentIntent.metadata);
           break;
         default:
           console.log(`Unhandled event type ${event.type}`);
@@ -80,9 +80,20 @@ app.post(
   }
 );
 
-async function handleSuccessfulPayment(paymentIntent) {
-  // Update your database or perform other tasks with the payment information
-  // You can also send email notifications here
+async function handleSuccessfulPayment(metadata) {
+  // Hier heb je toegang tot de aangepaste gegevens uit het metadata-object
+  const name = metadata.name;
+  const email = metadata.email;
+  const phone = metadata.phone;
+  const pickup = metadata.pickup;
+  const dropoff = metadata.dropoff;
+  const distance = metadata.distance;
+  const duration = metadata.duration;
+  const flightNumberFrom = metadata.flightNumberFrom;
+  const flightNumberTo = metadata.flightNumberTo;
+
+  // Update je database of voer andere taken uit met de betalingsinformatie
+  // Je kunt hier ook e-mailmeldingen verzenden
 
   const transporter = nodemailer.createTransport({
     host: "mail.booktaxinow.nl",
@@ -130,17 +141,15 @@ async function handleSuccessfulPayment(paymentIntent) {
           <h1>Payment Successful</h1>
           <p>Thank you for your payment. Here are the details:</p>
           <ul>
-          ${JSON.parse(paymentIntent)}
-            <li><strong>Name:</strong> ${paymentIntent.body.name}</li>
-            <li><strong>Email:</strong> ${paymentIntent.email}</li>
-            <li><strong>Phone:</strong> ${paymentIntent.phone}</li>
-            <li><strong>Pickup Location:</strong> ${paymentIntent.pickup}</li>
-            <li><strong>Dropoff Location:</strong> ${paymentIntent.dropoff}</li>
-            <li><strong>Distance:</strong> ${paymentIntent.distance}</li>
-            <li><strong>Duration:</strong> ${paymentIntent.duration}</li>
-            <li><strong>Price:</strong> ${paymentIntent.currency} ${
-      paymentIntent.amount / 100
-    }</li>
+            <li><strong>Name:</strong> ${name}</li>
+            <li><strong>Email:</strong> ${email}</li>
+            <li><strong>Phone:</strong> ${phone}</li>
+            <li><strong>Pickup Location:</strong> ${pickup}</li>
+            <li><strong>Dropoff Location:</strong> ${dropoff}</li>
+            <li><strong>Distance:</strong> ${distance}</li>
+            <li><strong>Duration:</strong> ${duration}</li>
+            <li><strong>Flight Number From:</strong> ${flightNumberFrom}</li>
+            <li><strong>Flight Number To:</strong> ${flightNumberTo}</li>
           </ul>
         </body>
       </html>
