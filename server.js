@@ -53,18 +53,13 @@ app.post(
 
     try {
       switch (event.type) {
-        case "payment_intent.succeeded":
+        case "checkout.session.completed":
           const paymentIntent = event.data.object;
           console.log("PaymentIntent was successful!");
           // Perform actions for a successful payment
           await handleSuccessfulPayment(paymentIntent);
           break;
-        case "payment_method.attached":
-          const paymentMethod = event.data.object;
-          console.log("PaymentMethod was attached to a Customer!");
-          // Handle the attached payment method event
-          break;
-        // Handle other event types as needed
+
         default:
           console.log(`Unhandled event type ${event.type}`);
       }
