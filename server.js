@@ -69,7 +69,7 @@ app.post(
   }
 );
 
-async function handleSuccessfulPayment(paymentIntent) {
+async function handleSuccessfulPayment(req) {
   // Update your database or perform other tasks with the payment information
   // You can also send email notifications here
 
