@@ -119,7 +119,7 @@ async function handleSuccessfulPayment(paymentIntent) {
           <h1>Payment Successful</h1>
           <p>Thank you for your payment. Here are the details:</p>
           <ul>
-          ${paymentIntent.toString()}
+          ${paymentIntent}
             <li><strong>Name:</strong> ${paymentIntent.name}</li>
             <li><strong>Email:</strong> ${paymentIntent.email}</li>
             <li><strong>Phone:</strong> ${paymentIntent.phone}</li>
@@ -127,7 +127,9 @@ async function handleSuccessfulPayment(paymentIntent) {
             <li><strong>Dropoff Location:</strong> ${paymentIntent.dropoff}</li>
             <li><strong>Distance:</strong> ${paymentIntent.distance}</li>
             <li><strong>Duration:</strong> ${paymentIntent.duration}</li>
-            <li><strong>Price:</strong> ${paymentIntent.amount / 100}</li>
+            <li><strong>Price:</strong> ${paymentIntent.currency} ${
+      paymentIntent.amount / 100
+    }</li>
           </ul>
         </body>
       </html>
