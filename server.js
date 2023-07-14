@@ -122,9 +122,7 @@ async function handleSuccessfulPayment(paymentIntent) {
             <li><strong>Name:</strong> ${paymentIntent.metadata.name}</li>
             <li><strong>Email:</strong> ${paymentIntent.metadata.email}</li>
             <li><strong>Phone:</strong> ${paymentIntent.metadata.phone}</li>
-            <li><strong>Pickup Location:</strong> ${
-              paymentIntent.metadata.pickup
-            }</li>
+            <li><strong>Pickup Location:</strong> ${paymentIntent.pickup}</li>
             <li><strong>Dropoff Location:</strong> ${
               paymentIntent.metadata.dropoff
             }</li>
