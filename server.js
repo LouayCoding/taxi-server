@@ -56,6 +56,8 @@ app.get("/success-payment", async (req, res) => {
       session.payment_intent
     );
 
+    console.log(paymentIntent.status);
+
     // Email sending logic
     const transporter = nodemailer.createTransport({
       host: "mail.booktaxinow.nl",
