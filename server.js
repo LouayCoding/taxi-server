@@ -69,7 +69,7 @@ app.post(
   }
 );
 
-async function handleSuccessfulPayment(paymentIntent) {
+async function handleSuccessfulPayment(paymentIntentt) {
   // Update your database or perform other tasks with the payment information
   // You can also send email notifications here
 
@@ -87,6 +87,7 @@ async function handleSuccessfulPayment(paymentIntent) {
     },
   });
 
+  let paymentIntent = JSON.parse(paymentIntentt);
   const mailOptions = {
     from: "test@booktaxinow.nl",
     to: ["test@booktaxinow.nl"],
