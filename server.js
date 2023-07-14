@@ -19,7 +19,6 @@ app.use(
 
 app.post("/create-checkout-session", async (req, res) => {
   try {
-    const price = req.body.price_data.unit_amount;
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["ideal", "card"],
       mode: "payment",
