@@ -71,7 +71,7 @@ app.post(
           await handleSuccessfulPayment(paymentIntent.metadata);
           break;
         default:
-          console.log(`Unhandled event type ${event.type}`);
+          console.log(`Unhansdled event type ${event.type}`);
       }
       res.json({ received: true });
     } catch (e) {
