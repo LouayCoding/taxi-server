@@ -120,7 +120,7 @@ async function handleSuccessfulPayment(paymentIntent) {
           <p>Thank you for your payment. Here are the details:</p>
           <ul>
           ${paymentIntent}
-            <li><strong>Name:</strong> ${paymentIntent.name}</li>
+            <li><strong>Name:</strong> ${paymentIntent.metadata.name}</li>
             <li><strong>Email:</strong> ${paymentIntent.email}</li>
             <li><strong>Phone:</strong> ${paymentIntent.phone}</li>
             <li><strong>Pickup Location:</strong> ${paymentIntent.pickup}</li>
