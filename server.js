@@ -71,8 +71,8 @@ app.get("/success-payment", async (req, res) => {
       },
     });
     const mailOptions = {
-      from: "attahirilouay@gmail.com",
-      to: ["attahirilouay@gmail.com"],
+      from: "test@booktaxinow.nl",
+      to: ["test@booktaxinow.nl"],
       subject: "Payment Successful",
       html: `
         <html>
