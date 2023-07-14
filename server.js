@@ -19,6 +19,7 @@ app.use(
 
 app.post("/create-checkout-session", async (req, res) => {
   try {
+    const price = req.body.price_data.unit_amount;
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["ideal", "card"],
       mode: "payment",
@@ -70,7 +71,7 @@ app.post(
           await handleSuccessfulPayment(paymentIntent.metadata);
           break;
         default:
-          console.log(`Unhansdled event type ${event.type}`);
+          console.log(`Unhandled event type ${event.type}`);
       }
       res.json({ received: true });
     } catch (e) {
