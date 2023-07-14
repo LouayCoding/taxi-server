@@ -37,6 +37,17 @@ app.post("/create-checkout-session", async (req, res) => {
       ],
       success_url: `https://taxicentralschiphol.nl/succes-payment/`,
       cancel_url: `https://taxicentralschiphol.nl`,
+      metadata: {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        pickup: req.body.pickup,
+        dropoff: req.body.dropoff,
+        distance: req.body.distance,
+        duration: req.body.duration,
+        flightNumberFrom: req.body.flightNumberFrom,
+        flightNumberTo: req.body.flightNumberTo,
+      },
     });
 
     res.json({ url: session.url });
@@ -69,7 +80,7 @@ app.post(
   }
 );
 
-async function handleSuccessfulPayment(req) {
+async function handleSuccessfulPayment(paymentIntent) {
   // Update your database or perform other tasks with the payment information
   // You can also send email notifications here
 
@@ -120,7 +131,7 @@ async function handleSuccessfulPayment(req) {
           <p>Thank you for your payment. Here are the details:</p>
           <ul>
           ${JSON.parse(paymentIntent)}
-            <li><strong>Name:</strong> ${req.body.name}</li>
+            <li><strong>Name:</strong> ${paymentIntent.body.name}</li>
             <li><strong>Email:</strong> ${paymentIntent.email}</li>
             <li><strong>Phone:</strong> ${paymentIntent.phone}</li>
             <li><strong>Pickup Location:</strong> ${paymentIntent.pickup}</li>
